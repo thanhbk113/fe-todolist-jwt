@@ -3,6 +3,8 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { useAppSelector } from "./app/hooks";
 import RequiredAuth from "./components/RequiredAuth";
 import { authSelector } from "./features/authSlice";
+import Login from "./pages/Auth/Login";
+import SignUp from "./pages/Auth/SignUp";
 import Landing from "./pages/Landing";
 
 function App() {
@@ -13,6 +15,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/landing" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/" element={<RequiredAuth>Home</RequiredAuth>} />
         </Routes>
       </BrowserRouter>
