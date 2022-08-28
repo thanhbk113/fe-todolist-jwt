@@ -12,15 +12,15 @@ const Taskbar = () => {
       <div className="text-green-700">
         <Button
           onClick={() => navigate("/signup")}
-          className="w-16 mr-2 bg-slate-300 rounded-md p-1"
+          className="w-24 mr-2 bg-slate-300 rounded-md p-1"
         >
-          <span className="opacity-60 hover:opacity-100">SignUp</span>
+          <span className="opacity-60 hover:opacity-100">Đăng kí</span>
         </Button>
         <Button
           onClick={() => navigate("/login")}
-          className="w-16 bg-slate-300 rounded-md p-1"
+          className="w-24 bg-slate-300 rounded-md p-1"
         >
-          <span className="opacity-60 hover:opacity-100">Login</span>
+          <span className="opacity-60 hover:opacity-100">Đăng nhập</span>
         </Button>
       </div>
     </div>

@@ -1,15 +1,21 @@
 import React from "react";
+import "antd/dist/antd.min.css";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import { useAppSelector } from "./app/hooks";
 import RequiredAuth from "./components/RequiredAuth";
-import { authSelector } from "./features/authSlice";
 import Login from "./pages/Auth/Login";
 import SignUp from "./pages/Auth/SignUp";
 import Landing from "./pages/Landing";
+import { todoApi } from "./api/todoAPi";
+
+const getLogin = async () => {
+  const res: any = await todoApi.getAllTodo("6304fb93c67d6b0851a1e259");
+
+  console.log("Hello");
+  console.log(res);
+};
 
 function App() {
-  const auth = useAppSelector(authSelector);
-  console.log(auth);
+  getLogin();
   return (
     <div>
       <BrowserRouter>
