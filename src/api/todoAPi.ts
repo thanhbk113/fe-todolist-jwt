@@ -8,17 +8,16 @@ const instance = axios.create({
     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
   },
 });
-
 export const todoApi = {
-  signup: (name: string, email: string, password: string) => {
+  signup: (Name: string, Email: string, Password: string) => {
     return instance.post("/signup", {
-      name,
-      email,
-      password,
+      Name,
+      Email,
+      Password,
     });
   },
   login: (email: string, password: string) => {
-    return axios.post("/login", {
+    return instance.post("/login", {
       email,
       password,
     });

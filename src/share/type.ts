@@ -6,3 +6,9 @@ export interface User {
   refresh_token: string;
   user_id: string;
 }
+
+export interface SignUpInter {
+  username: string;
+  email: string;
+  password: string;
+}

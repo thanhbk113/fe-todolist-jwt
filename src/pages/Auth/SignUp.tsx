@@ -1,16 +1,38 @@
-import React from "react";
 import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
-import { Button, Form, Input } from "antd";
-import { Link } from "react-router-dom";
+import { Button, Form, Input, message } from "antd";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { todoApi } from "../../api/todoAPi";
+import { SignUpInter } from "../../share/type";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const onFinish = async (values: SignUpInter) => {
+    try {
+      setLoading(true);
+      await todoApi.signup(values.username, values.email, values.password);
+      setLoading(false);
+      message.success("Success");
+      navigate("/login");
+    } catch (error: any) {
+      setLoading(false);
+      message.error("Email đã có người đăng kí");
+    }
+  };
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="my-4">
         <img src="images/vertical-lg.png" alt="" />
       </div>
       <p className="font-light mb-8">Ghi nhớ mọi thứ quan trọng.</p>
-      <Form labelCol={{ span: 8 }} wrapperCol={{ span: 24 }} autoComplete="off">
+      <Form
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 24 }}
+        autoComplete="off"
+        onFinish={onFinish}
+      >
         <Form.Item
           name="username"
           rules={[
@@ -93,6 +115,7 @@ const SignUp = () => {
             type="primary"
             htmlType="submit"
             className="w-full my-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            loading={loading}
           >
             Đăng ký
           </Button>
@@ -100,9 +123,9 @@ const SignUp = () => {
       </Form>
       <div className="font-light">
         <p>
-          Already have an account?{" "}
+          Đã có tài khoản?{" "}
           <Link className="text-green-600 font" to="/login">
-            Login
+            Đăng nhập
           </Link>
         </p>
       </div>
