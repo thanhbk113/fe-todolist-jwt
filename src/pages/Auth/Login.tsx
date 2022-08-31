@@ -11,15 +11,13 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onFinish = async (values: { email: string; password: string }) => {
-    console.log(values);
     dispatch(loginHandler(values));
   };
 
-  if (!auth.user) {
+  if (auth.user !== null) {
+    console.log(auth.user);
     message.success("Login success");
     navigate("/");
-  } else {
-    message.success("Email hoặc mật khẩu không chính xác");
   }
 
   return (

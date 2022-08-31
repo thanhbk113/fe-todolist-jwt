@@ -5,6 +5,7 @@ import RequiredAuth from "./components/RequiredAuth";
 import Login from "./pages/Auth/Login";
 import SignUp from "./pages/Auth/SignUp";
 import Landing from "./pages/Landing";
+import Home from "./pages/Home/Home";
 
 // const getLogin = async () => {
 //   const res: any = await todoApi.signup("thane", "thane@vip.vip", "123456");
@@ -23,7 +24,14 @@ function App() {
           <Route path="/landing" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/" element={<RequiredAuth>Home</RequiredAuth>} />
+          <Route
+            path="/"
+            element={
+              <RequiredAuth>
+                <Home />
+              </RequiredAuth>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>

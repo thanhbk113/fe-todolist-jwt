@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { authSelector } from "../../features/authSlice";
 
@@ -15,7 +15,7 @@ const RequiredAuth: React.FC<Props> = ({ children }) => {
     if (!auth.user) {
       navigate("/landing");
     }
-  }, [auth]);
+  }, [auth, navigate]);
 
   return <div>{children}</div>;
 };
