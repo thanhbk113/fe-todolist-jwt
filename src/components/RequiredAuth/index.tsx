@@ -10,7 +10,6 @@ interface Props {
 const RequiredAuth: React.FC<Props> = ({ children }) => {
   const auth = useAppSelector(authSelector);
   const navigate = useNavigate();
-  console.log(auth.user);
   useEffect(() => {
     if (!auth.user) {
       navigate("/landing");

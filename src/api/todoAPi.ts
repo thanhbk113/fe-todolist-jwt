@@ -19,6 +19,11 @@ export const todoApi = {
       }
       // { withCredentials: true }
     );
+    return instance.post("/signup", {
+      Name,
+      Email,
+      Password,
+    });
   },
   login: (email: string, password: string) => {
     return instance.post("/login", {
