@@ -5,17 +5,17 @@ import RequiredAuth from "./components/RequiredAuth";
 import Login from "./pages/Auth/Login";
 import SignUp from "./pages/Auth/SignUp";
 import Landing from "./pages/Landing";
-import { todoApi } from "./api/todoAPi";
 
-const getLogin = async () => {
-  const res: any = await todoApi.getAllTodo("6304fb93c67d6b0851a1e259");
+// const getLogin = async () => {
+//   const res: any = await todoApi.signup("thane", "thane@vip.vip", "123456");
+//   // const res: any = await todoApi.getAllTodo("6304fb93c67d6b0851a1e259");
 
-  console.log("Hello");
-  console.log(res);
-};
+//   console.log("Hello");
+//   console.log(res);
+// };
 
 function App() {
-  getLogin();
+  // getLogin();
   return (
     <div>
       <BrowserRouter>
