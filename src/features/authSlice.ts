@@ -36,10 +36,10 @@ export const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload;
       })
-      .addCase(loginHandler.pending, (state, action) => {
+      .addCase(loginHandler.pending, (state) => {
         state.loading = true;
       })
-      .addCase(loginHandler.rejected, (state, action) => {
+      .addCase(loginHandler.rejected, (state) => {
         state.user = null;
         state.loading = false;
         message.error("Email hoặc mật khẩu không chính xác");

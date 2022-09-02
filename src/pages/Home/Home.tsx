@@ -4,7 +4,7 @@ import Todo from "./components/Todo";
 
 const Home = () => {
   return (
-    <div className="min-h-screen w-screen">
+    <div className="min-h-screen w-screen bg-[rgba(2,6,49,255)]">
       <TaskBar />
       <Todo />
     </div>

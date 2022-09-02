@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Todo } from "../share/type";
 
 const instance = axios.create({
   baseURL: "https://todo-api-bk.herokuapp.com/",
@@ -31,7 +32,21 @@ export const todoApi = {
       password,
     });
   },
-  getAllTodo: (userId: string) => {
+  addTodo: (Task: string, userId?: string) => {
+    return instance.post(`todo/${userId}`, {
+      Task,
+      Done: false,
+    });
+  },
+  editTodo: (todo: Todo, todosId?: string) => {
+    return instance.post(`/todo/${todosId}`, {
+      Id: todo.Id,
+      task: todo.task,
+      created_at: todo.created_at,
+      done: todo.done,
+    });
+  },
+  getAllTodo: (userId?: string) => {
     return instance.get(`todos/${userId}`);
   },
 };

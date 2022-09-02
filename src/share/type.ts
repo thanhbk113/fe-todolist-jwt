@@ -12,3 +12,10 @@ export interface SignUpInter {
   email: string;
   password: string;
 }
+
+export interface Todo {
+  Id: string;
+  created_at: string;
+  done: boolean;
+  task: string;
+}

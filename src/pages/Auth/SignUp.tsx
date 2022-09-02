@@ -23,7 +23,7 @@ const SignUp = () => {
   };
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="my-4">
+      <div className="my-4 cursor-pointer" onClick={() => navigate("/landing")}>
         <img src="images/vertical-lg.png" alt="" />
       </div>
       <p className="font-light mb-8">Ghi nhớ mọi thứ quan trọng.</p>
