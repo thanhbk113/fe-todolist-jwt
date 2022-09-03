@@ -38,12 +38,22 @@ export const todoApi = {
       Done: false,
     });
   },
-  editTodo: (todo: Todo, todosId?: string) => {
-    return instance.post(`/todo/${todosId}`, {
+  editTodo: (todo: Todo, userId?: string) => {
+    return instance.put(`/todo/${userId}`, {
       Id: todo.Id,
       task: todo.task,
       created_at: todo.created_at,
       done: todo.done,
+    });
+  },
+  deleteTodo: (todo: Todo, userId?: string) => {
+    return instance.delete(`/todo/${userId}`, {
+      data: {
+        Id: todo.Id,
+        task: todo.task,
+        created_at: todo.created_at,
+        done: todo.done,
+      },
     });
   },
   getAllTodo: (userId?: string) => {

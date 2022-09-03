@@ -1,9 +1,10 @@
 import {
   BorderOutlined,
+  CheckCircleOutlined,
   DeleteOutlined,
   EditOutlined,
 } from "@ant-design/icons";
-import { message, Spin } from "antd";
+import { Spin } from "antd";
 import { useEffect, useState } from "react";
 import { todoApi } from "../../../api/todoAPi";
 import { useAppSelector } from "../../../app/hooks";
@@ -16,39 +17,42 @@ const TodoDetails = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   console.log(auth.user?.id);
   const getTodos = async () => {
-    try {
-      setLoading(true);
-      const { data } = await todoApi.getAllTodo(auth.user?.user_id);
-      setLoading(false);
-      setTodos(data.data.Todos);
-    } catch (error: any) {
-      if (error.response.data.error === "mongo: no documents in result") {
-        setLoading(false);
-        message.error("Error your server");
-      }
-    }
-  };
-
-  const doneTask = async (todo: Todo) => {
     setLoading(true);
-    const { data } = await todoApi.editTodo(
-      {
-        Id: todo.Id,
-        created_at: todo.created_at,
-        done: true,
-        task: todo.task,
-      },
-      auth.user?.id
-    );
+    const { data } = await todoApi.getAllTodo(auth.user?.user_id);
     setLoading(false);
-    console.log(data.data.Todos);
     setTodos(data.data.Todos);
   };
 
+  const doneTask = async (todo: Todo, done: boolean) => {
+    setLoading(true);
+    await todoApi.editTodo(
+      {
+        Id: todo.Id,
+        created_at: todo.created_at,
+        done,
+        task: todo.task,
+      },
+      auth.user?.user_id
+    );
+    getTodos();
+  };
+
+  const deleteTask = async (todo: Todo) => {
+    setLoading(true);
+    await todoApi.deleteTodo(
+      {
+        Id: todo.Id,
+        created_at: todo.created_at,
+        done: todo.done,
+        task: todo.task,
+      },
+      auth.user?.user_id
+    );
+    getTodos();
+  };
+
   useEffect(() => {
-    if (auth.user !== null) {
-      getTodos();
-    }
+    getTodos();
   }, [auth.user]);
   return (
     <div>
@@ -58,16 +62,30 @@ const TodoDetails = () => {
         <div>
           {todos.map((todo) => (
             <div
-              className="flex items-center justify-between bg-white text-black cursor-pointer text-sm font-extralight rounded-md p-2 my-2 w-72"
+              className={`flex items-center justify-between ${
+                todo.done
+                  ? "text-white bg-purple-400 line-through"
+                  : "text-black bg-white"
+              } cursor-pointer text-sm font-extralight rounded-md p-2 my-2 w-72`}
               key={todo.Id}
             >
               <div className="flex items-center gap-2">
-                <BorderOutlined onClick={() => doneTask(todo)} />
+                {todo.done ? (
+                  <CheckCircleOutlined
+                    className="text-green-700 text-lg"
+                    onClick={() => doneTask(todo, false)}
+                  />
+                ) : (
+                  <BorderOutlined onClick={() => doneTask(todo, true)} />
+                )}
                 <span>{todo.task}</span>
               </div>
               <div className="flex items-center gap-2">
-                <EditOutlined />
-                <DeleteOutlined />
+                <EditOutlined className="text-blue-600" />
+                <DeleteOutlined
+                  onClick={() => deleteTask(todo)}
+                  className="text-red-600"
+                />
               </div>
             </div>
           ))}
