@@ -3,8 +3,9 @@ import {
   CheckCircleOutlined,
   DeleteOutlined,
   EditOutlined,
+  SendOutlined,
 } from "@ant-design/icons";
-import { Spin } from "antd";
+import { Input, Popover, Spin } from "antd";
 import { useEffect, useState } from "react";
 import { todoApi } from "../../../api/todoAPi";
 import { useAppSelector } from "../../../app/hooks";
@@ -15,6 +16,7 @@ const TodoDetails = () => {
   const auth = useAppSelector(authSelector);
   const [loading, setLoading] = useState(false);
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [editText, setEditText] = useState("");
   console.log(auth.user?.id);
   const getTodos = async () => {
     setLoading(true);
@@ -23,13 +25,13 @@ const TodoDetails = () => {
     setTodos(data.data.Todos);
   };
 
-  const doneTask = async (todo: Todo, done: boolean) => {
+  const doneTask = async (todo: Todo) => {
     setLoading(true);
     await todoApi.editTodo(
       {
         Id: todo.Id,
         created_at: todo.created_at,
-        done,
+        done: todo.done,
         task: todo.task,
       },
       auth.user?.user_id
@@ -66,22 +68,60 @@ const TodoDetails = () => {
                 todo.done
                   ? "text-white bg-purple-400 line-through"
                   : "text-black bg-white"
-              } cursor-pointer text-sm font-extralight rounded-md p-2 my-2 w-72`}
+              } cursor-pointer text-sm font-extralight rounded-md p-[0.28rem] my-2 w-72`}
               key={todo.Id}
             >
               <div className="flex items-center gap-2">
                 {todo.done ? (
                   <CheckCircleOutlined
                     className="text-green-700 text-lg"
-                    onClick={() => doneTask(todo, false)}
+                    onClick={() =>
+                      doneTask({
+                        Id: todo.Id,
+                        done: false,
+                        created_at: todo.created_at,
+                        task: todo.task,
+                      })
+                    }
                   />
                 ) : (
-                  <BorderOutlined onClick={() => doneTask(todo, true)} />
+                  <BorderOutlined
+                    onClick={() =>
+                      doneTask({
+                        Id: todo.Id,
+                        done: todo.done,
+                        created_at: todo.created_at,
+                        task: todo.task,
+                      })
+                    }
+                  />
                 )}
                 <span>{todo.task}</span>
               </div>
               <div className="flex items-center gap-2">
-                <EditOutlined className="text-blue-600" />
+                <Popover
+                  content={
+                    <Input
+                      defaultValue={todo.task}
+                      addonAfter={
+                        <SendOutlined
+                          onClick={() =>
+                            doneTask({
+                              Id: todo.Id,
+                              done: todo.done,
+                              created_at: todo.created_at,
+                              task: editText,
+                            })
+                          }
+                        />
+                      }
+                      onChange={(e) => setEditText(e.target.value)}
+                    />
+                  }
+                  trigger="click"
+                >
+                  <EditOutlined className="text-blue-600" />
+                </Popover>
                 <DeleteOutlined
                   onClick={() => deleteTask(todo)}
                   className="text-red-600"
