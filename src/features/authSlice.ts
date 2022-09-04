@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { message } from "antd";
+import storage from "redux-persist/lib/storage";
 import { todoApi } from "../api/todoAPi";
 import { RootState } from "../app/store";
 import { User } from "../share/type";
@@ -27,6 +28,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
+      storage.removeItem("persist:auth");
       state.user = null;
     },
   },

@@ -39,11 +39,18 @@ const Todo = () => {
     return "🌙";
   };
 
+  const dayNow = () => {
+    if (now.day() === 0) {
+      return "Chủ nhật";
+    }
+    return `thứ ${now.day() + 1}`;
+  };
+
   return (
     <div className="text-white flex flex-col items-center justify-center mt-8">
       <div className="flex flex-col items-center justify-center mb-4">
         <p className="text-lg">
-          Hôm nay là thứ {now.day() + 1} {icon()}
+          Hôm nay là {dayNow()} {icon()}
         </p>
         <p className="text-xs text-blue-400 mb-4 mt-2">
           Thêm công việc cần làm vào đây nhé

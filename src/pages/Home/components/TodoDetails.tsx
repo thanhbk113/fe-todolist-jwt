@@ -17,7 +17,6 @@ const TodoDetails = () => {
   const [loading, setLoading] = useState(false);
   const [todos, setTodos] = useState<Todo[]>([]);
   const [editText, setEditText] = useState("");
-  console.log(auth.user?.id);
   const getTodos = async () => {
     setLoading(true);
     const { data } = await todoApi.getAllTodo(auth.user?.user_id);
@@ -89,11 +88,12 @@ const TodoDetails = () => {
                     onClick={() =>
                       doneTask({
                         Id: todo.Id,
-                        done: todo.done,
+                        done: true,
                         created_at: todo.created_at,
                         task: todo.task,
                       })
                     }
+                    className="text-xl"
                   />
                 )}
                 <span>{todo.task}</span>
