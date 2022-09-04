@@ -18,10 +18,17 @@ const TodoDetails = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [editText, setEditText] = useState("");
   const getTodos = async () => {
-    setLoading(true);
-    const { data } = await todoApi.getAllTodo(auth.user?.user_id);
-    setLoading(false);
-    setTodos(data.data.Todos);
+    try {
+      setLoading(true);
+      const { data } = await todoApi.getAllTodo(auth.user?.user_id);
+      setLoading(false);
+      setTodos(data.data.Todos);
+    } catch (error: any) {
+      if (error.response.data.error === "mongo: no documents in result") {
+        await todoApi.addTodo("Tạo công việc đầu tiên");
+        setLoading(false);
+      }
+    }
   };
 
   const doneTask = async (todo: Todo) => {
