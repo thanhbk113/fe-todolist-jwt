@@ -54,6 +54,7 @@ const TodoDetails = () => {
 
   useEffect(() => {
     getTodos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth.user]);
   return (
     <div>
