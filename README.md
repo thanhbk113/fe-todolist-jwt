@@ -1,2 +1,2 @@
 <h1>You can preview app this link:</h1>
-[Todos_app](https://todosbk.netlify.app)
+<a href="https://todosbk.netlify.app">todos_app</a>
