@@ -25,7 +25,7 @@ const TodoDetails = () => {
       setTodos(data.data.Todos);
     } catch (error: any) {
       if (error.response.data.error === "mongo: no documents in result") {
-        await todoApi.addTodo("Tạo công việc đầu tiên");
+        await todoApi.addTodo("Tạo công việc đầu tiên", auth.user?.id);
         setLoading(false);
       }
     }
