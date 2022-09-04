@@ -11,15 +11,6 @@ const instance = axios.create({
 });
 export const todoApi = {
   signup: (Name: string, Email: string, Password: string) => {
-    return instance.post(
-      "/signup",
-      {
-        Name,
-        Email,
-        Password,
-      }
-      // { withCredentials: true }
-    );
     return instance.post("/signup", {
       Name,
       Email,
