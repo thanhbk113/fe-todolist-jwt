@@ -9,6 +9,39 @@ const instance = axios.create({
     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
   },
 });
+
+instance.interceptors.response.use(
+  (response) => {
+    // console.log(response);
+    return response;
+  },
+  (error) => {
+    console.log(error);
+    return Promise.reject(error);
+  }
+);
+
+instance.interceptors.request.use(
+  (config) => {
+    // console.log(config);
+    console.log();
+    const token = JSON.parse(
+      JSON.parse(localStorage.getItem("persist:auth") || "{}").user
+    ).token;
+    if (token) {
+      config.headers = {
+        Authorization: `Bearer ${token}`,
+      };
+    }
+    console.log(config);
+    return config;
+  },
+  (error) => {
+    console.log(error);
+    return Promise.reject(error);
+  }
+);
+
 export const todoApi = {
   signup: (Name: string, Email: string, Password: string) => {
     return instance.post("/signup", {
