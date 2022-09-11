@@ -23,12 +23,20 @@ instance.interceptors.response.use(
 
 instance.interceptors.request.use(
   (config) => {
-    // console.log(config);
-    console.log();
-    const token = JSON.parse(
-      JSON.parse(localStorage.getItem("persist:auth") || "{}").user
-    ).token;
-    if (token) {
+    console.log(
+      JSON.parse(
+        JSON.parse(localStorage.getItem("persist:auth") || "{}").user || "{}"
+      )
+    );
+    if (
+      JSON.parse(
+        JSON.parse(localStorage.getItem("persist:auth") || "{}").user || "{}"
+      ) !== null
+    ) {
+      const token = JSON.parse(
+        JSON.parse(localStorage.getItem("persist:auth") || "{}").user || "{}"
+      ).token;
+      console.log(token);
       config.headers = {
         Authorization: `Bearer ${token}`,
       };
